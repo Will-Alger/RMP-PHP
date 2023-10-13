@@ -48,12 +48,3 @@ class SQLiteDB
         $this->db = null;
     }
 }
-
-// Example usage:
-
-// Create a new SQLiteDB object
-$db = new SQLiteDB('E:/rmp-py-db/rmp-py.db');
-
-// Fetch all records from the 'users' table as JSON
-$teacher = $db->fetchAllAsJson('SELECT * FROM teachers LIMIT 5');
-echo $teacher;

@@ -5,7 +5,6 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Sign In</title>
-	<!-- Bootstrap CSS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -27,8 +26,10 @@
 				if ($line[0] == $_POST['email'] && password_verify($_POST['password'], $line[1])) {
 					$_SESSION['email'] = $_POST['email'];
 					$_SESSION['ID'] = $index;
-					echo '<div class="container mt-5"><div class="alert alert-success">Welcome to our website</div></div>';
-					$showForm = false;
+					header("Location: private.php");
+					exit();
+					// echo '<div class="container mt-5"><div class="alert alert-success">Welcome to our website</div></div>';
+					// $showForm = false;
 				}
 			}
 			fclose($fp);

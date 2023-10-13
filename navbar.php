@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="public.php">Main</a>
+                <a class="nav-link" href="private.php">Main</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">

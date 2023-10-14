@@ -1,17 +1,26 @@
 <?php
 include 'navbar.php';
+require_once 'db.php';
 
 $teacherID = '';
 $scope = '';
+
+$db = new SQLiteDB('rmp-py.db');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $teacherID = filter_input(INPUT_POST, 'teacherID', FILTER_SANITIZE_NUMBER_INT);
     $scope = filter_input(INPUT_POST, 'scope', FILTER_SANITIZE_STRING);
 
-    $url = "compareProfDetail.php?teacherID=$teacherID&scope=$scope";
+    $teacherSql = "SELECT * FROM teachers WHERE legacyId = :teacherID";
+    $teacherData = $db->fetchOne($teacherSql, ['teacherID' => $teacherID]);
 
-    header("Location: $url");
-    exit;
+    if (!$teacherData) {
+        $errorMsg = "Sorry, we couldn't find a teacher with that ID.";
+    } else {
+        $url = "compareProfDetail.php?teacherID=$teacherID&scope=$scope";
+        header("Location: $url");
+        exit;
+    }
 }
 ?>
 
@@ -27,6 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Select comparison data</h1>
+
+        <?php if (isset($errorMsg) && $errorMsg) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $errorMsg; ?>
+            </div>
+        <?php endif; ?>
 
         <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" class="mt-3">
             <div class="form-group">

@@ -71,9 +71,9 @@ function getBoxColor($teacherValue, $schoolAverage, $inverse = false)
 <body>
     <div class="container mt-5">
         <?php if ($scope == "department") { ?>
-            <h1 class="text-center display-4 my-4">Comparative Analysis: Professor vs. <span class="text-primary"><?= $teacherData['department'] ?></span> Department Averages</h1>
+            <h1 class="text-center display-4 my-4">Comparative Analysis: Professor vs. <span class="text-primary"><?= $teacherData['department'] ?> Department Averages</span></h1>
         <?php } else { ?>
-            <h1 class="text-center display-4 my-4">Comparative Analysis: Professor vs. <span class="text-primary">University</span> Wide Averages</h1>
+            <h1 class="text-center display-4 my-4">Comparative Analysis: Professor vs. <span class="text-primary">University Wide Averages</span></h1>
         <?php } ?>
         <div class="row justify-content-center">
             <div class="col-md-5 mt-3 d-flex">

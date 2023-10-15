@@ -23,8 +23,6 @@ fclose($file);
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,10 +47,14 @@ fclose($file);
                 <li class="list-group-item"><strong>Would Take Again Percent:</strong> <?php echo $professor['wouldTakeAgainPercent']; ?>%</li>
                 <li class="list-group-item"><strong>Highlighted?:</strong> <?= $highlightValue == 0 ? 'false' : 'true'; ?></li>
             </ul>
+
         <?php else : ?>
             <p class="text-danger">No information found for this professor.</p>
         <?php endif; ?>
         <a href="index.php" class="btn btn-primary">Back</a>
+        <a href="edit.php?professorId=<?= $professorId; ?>" class="btn btn-primary">Edit</a>
+        <a href="delete.php?professorId=<?= $professorId; ?>" class="btn btn-danger">Delete</a>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

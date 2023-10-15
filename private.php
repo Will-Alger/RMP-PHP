@@ -43,19 +43,16 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-4 text-center mb-3">
-                <a href="compareProf.php" class="btn btn-primary btn-block">Compare Professors</a>
+                <a href="compare.php?type=professor" class="btn btn-primary btn-block">Compare Professors</a>
             </div>
             <div class="col-md-4 text-center mb-3">
-                <a href="compareUni.php" class="btn btn-primary btn-block">Compare Universities</a>
+                <a href="compare.php?type=university" class="btn btn-primary btn-block">Compare Universities</a>
             </div>
         </div>
     </div>
 
-    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>

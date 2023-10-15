@@ -20,9 +20,10 @@
 <body>
     <?php
     require_once('functions.php');
+    require_once('navbar.php')
     /* 
     TODO:
-    1. Implment dynamic pages for two types of items (universities and teachers?)
+    // 1. Implment dynamic pages for two types of items (universities and teachers?)
     2. be able to list, preview, create, edit, delete entities.
     3. admin has functionality for index, detailing, creating, editing, delting.
     // 4. Authentication
@@ -31,31 +32,19 @@
 */
     ?>
 
-    <div class="container mt-5">
+    <div class="container mt-5 text-center">
         <h1 class="mb-4">RateMyProfessor Data Comparison Tool</h1>
-        <div class="list-group">
-            <a href="signup.php" class="list-group-item list-group-item-action">Sign up</a>
-            <a href="signin.php" class="list-group-item list-group-item-action">Sign in</a>
-
-            <?php
-            if (isset($_SESSION['email'])) {
-                echo '<a href="signout.php" class="list-group-item list-group-item-action">Sign out</a>';
-            } else {
-                echo '<a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Please sign in to use this option.">Sign out</a>';
-            }
-            ?>
-
-            <a href="public.php" class="list-group-item list-group-item-action">Public</a>
-            <a href="private.php" class="list-group-item list-group-item-action">Private</a>
-        </div>
+        <?php
+        if (!isset($_SESSION['email'])) {
+            echo "<p>Please <a href='signin.php'>sign in</a> to make comparisons or visit the <a href='public.php'>public page</a>.</p>";
+        }
+        ?>
     </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // Initialize tooltips
         $(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });

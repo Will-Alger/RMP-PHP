@@ -43,8 +43,6 @@ if ($type == "professor") {
     }
 }
 
-
-
 function getBoxColor($teacherValue, $schoolAverage, $inverse = false)
 {
     if ($inverse) {

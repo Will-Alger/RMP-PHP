@@ -1,6 +1,7 @@
 <?php
 require_once 'navbar.php';
 require_once 'db.php';
+require_once('functions.php');
 
 $teacherId = '';
 $schoolId = '';

@@ -1,3 +1,15 @@
+<?php
+require_once('functions.php');
+
+if (!isset($_SESSION['email'])) {
+    header('Location: signin.php');
+    exit;
+}
+
+include 'navbar.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,17 +33,6 @@
 </head>
 
 <body>
-
-    <?php
-    require_once('functions.php');
-
-    if (!isset($_SESSION['email'])) {
-        header('Location: signin.php');
-        exit;
-    }
-
-    include 'navbar.php';
-    ?>
 
 
 

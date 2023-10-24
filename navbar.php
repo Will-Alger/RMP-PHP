@@ -21,16 +21,16 @@
             if (!isset($_SESSION['email'])) {
             ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="signup.php">Sign up</a>
+                    <a class="nav-link" href="auth/signup.php">Sign up</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="signin.php">Sign in</a>
+                    <a class="nav-link" href="auth/signin.php">Sign in</a>
                 </li>
             <?php
             } else {
             ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="signout.php">Sign out</a>
+                    <a class="nav-link" href="auth/signout.php">Sign out</a>
                 </li>
             <?php
             }

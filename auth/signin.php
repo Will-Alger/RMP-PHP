@@ -11,13 +11,13 @@
 <body>
 
 	<?php
-	require_once('functions.php');
+	require_once('../functions.php');
 	if (isset($_SESSION['email'])) die('You are already sign in, no need to sign in.');
 	$showForm = true;
 	if (count($_POST) > 0) {
 		if (isset($_POST['email'][0]) && isset($_POST['password'][0])) {
 			$index = 0;
-			$fp = fopen(__DIR__ . '/data/users.csv.php', 'r');
+			$fp = fopen(__DIR__ . '/../data/users.csv.php', 'r');
 			while (!feof($fp)) {
 				$line = fgets($fp);
 				if (strstr($line, '<?php die() ?>') || strlen($line) < 5) continue;
@@ -26,10 +26,8 @@
 				if ($line[0] == $_POST['email'] && password_verify($_POST['password'], $line[1])) {
 					$_SESSION['email'] = $_POST['email'];
 					$_SESSION['ID'] = $index;
-					header("Location: private.php");
+					header("Location: ../private.php");
 					exit();
-					// echo '<div class="container mt-5"><div class="alert alert-success">Welcome to our website</div></div>';
-					// $showForm = false;
 				}
 			}
 			fclose($fp);

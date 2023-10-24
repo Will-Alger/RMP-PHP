@@ -5,23 +5,21 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Sign Up</title>
-	<!-- Bootstrap CSS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 
 	<?php
-	require_once('functions.php');
+	require_once('../functions.php');
 	if (isset($_SESSION['email'])) die('You are already signed in, please sign out if you want to create a new account.');
 	$showForm = true;
 
 	if (count($_POST) > 0) {
 		if (isset($_POST['email'][0]) && isset($_POST['password'][0])) {
 
-			// Check if the email already exists
 			$emailExists = false;
-			$fp = fopen(__DIR__ . '/data/users.csv.php', 'a+');
+			$fp = fopen('../data/users.csv.php', 'a+');
 			while ($line = fgets($fp)) {
 				$data = explode(';', $line);
 				if ($data[0] == $_POST['email']) {

@@ -2,45 +2,19 @@
 require_once 'db.php';
 require_once 'sql/queries.php';
 
-$db = new SQLiteDB('rmp-py.db');
-
+$db = new rmpDB('rmp-py.db');
 $type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
 $scope = filter_input(INPUT_GET, 'scope', FILTER_SANITIZE_STRING);
-$teacherData;
-$schoolData;
-$aggregateSchoolData;
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
 
 if ($type == "professor") {
-    // get the professor that will be compared
-    $teacherId = filter_input(INPUT_GET, 'teacherId', FILTER_SANITIZE_NUMBER_INT);
-    $teacherSql = "SELECT * FROM teachers WHERE legacyId = :teacherId";
-    $teacherData = $db->fetchOne($teacherSql, ['teacherId' => $teacherId]);
-
-    $schoolId = $teacherData['schoolId'];
-    $department = $teacherData['department'];
-
-    $params = ['schoolId' => $schoolId];
-
-    // if filtering by department, add it to the query + query parameters
-    if ($scope == "department") {
-        $aggregateTeacherSql .= " AND department = :department AND avgRating != 0";
-        $params['department'] = $department;
-    }
-    $schoolData = $db->fetchOne($aggregateTeacherSql, $params);
+    $teacherData = $db->getProfessorByLegacyId($id);
+    $department = $scope == "department" ? $teacherData['department'] : null;
+    $schoolData = $db->getSchoolData($aggregateTeacherSql, $teacherData['schoolId'], $department);
 } else if ($type == "university") {
-
-    // get the university that will be compared
-    $schoolId = filter_input(INPUT_GET, 'schoolId', FILTER_SANITIZE_NUMBER_INT);
-    $schoolData = $db->fetchOne($schoolDataQuery, ['schoolId' => $schoolId]);
-
-    $state = $schoolData['state'];
-    if ($scope == "state") {
-        // filter by state
-        $aggregateSchoolDataSql .= " WHERE state = :state";
-        $aggregateSchoolData = $db->fetchOne($aggregateSchoolDataSql, ['state' => $state]);
-    } else if ($scope == "platform") {
-        $aggregateSchoolData = $db->fetchOne($aggregateSchoolDataSql);
-    }
+    $schoolData = $db->getUniversityByLegacyId($id);
+    $aggregateSchoolData = $db->aggregateSchoolData($db, $schoolData, $scope);
 }
 
 function getBoxColor($teacherValue, $schoolAverage, $inverse = false)
@@ -63,6 +37,7 @@ function getBoxColor($teacherValue, $schoolAverage, $inverse = false)
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -76,19 +51,10 @@ function getBoxColor($teacherValue, $schoolAverage, $inverse = false)
 <body>
     <div class="container mt-5">
         <?php
-        if ($type == "professor") {
-            if ($scope == "department") { ?>
-                <h1 class="text-center display-4 my-4">Comparative Analysis: Professor vs. <span class="text-primary"><?= $teacherData['department'] ?> Department Averages</span></h1>
-            <?php } else { ?>
-                <h1 class="text-center display-4 my-4">Comparative Analysis: Professor vs. <span class="text-primary">University Wide Averages</span></h1>
-            <?php }
-        } elseif ($type == "university") {
-            if ($scope == "state") { ?>
-                <h1 class="text-center display-4 my-4">Comparative Analysis: University vs. <span class="text-primary"><?= $schoolData['state'] ?> Averages</span></h1>
-            <?php } else { ?>
-                <h1 class="text-center display-4 my-4">Comparative Analysis: University vs. <span class="text-primary">?Ratemyprofessor Averages</span></h1>
-        <?php }
-        }
+        $scopeName = ($scope == "department") ? $teacherData['department'] : (($scope == "state") ? $schoolData['state'] : "University Wide");
+        $typeName = ($type == "professor") ? "Professor" : "University";
+        $platformName = ($type == "university" && $scope != "state") ? "Ratemyprofessor" : "Averages";
+        echo "<h1 class='text-center display-4 my-4'>Comparative Analysis: $typeName vs. <span class='text-primary'>$scopeName $platformName</span></h1>";
         ?>
         <div class="row justify-content-center">
 

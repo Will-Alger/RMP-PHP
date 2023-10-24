@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
-    <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Enhance the appearance of the disabled link */
         .list-group-item.disabled {
             background-color: #f5f5f5;
             color: #bbb;
@@ -21,15 +19,6 @@
     <?php
     require_once('functions.php');
     require_once('navbar.php')
-    /* 
-    TODO:
-    // 1. Implment dynamic pages for two types of items (universities and teachers?)
-    2. be able to list, preview, create, edit, delete entities.
-    3. admin has functionality for index, detailing, creating, editing, delting.
-    // 4. Authentication
-    // 5. use bootstrap
-    6. create a max 10 minute video demonstrating the project and its features.
-*/
     ?>
 
     <div class="container mt-5 text-center">

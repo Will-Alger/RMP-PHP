@@ -8,7 +8,6 @@ class SQLiteDB
         $this->db = new PDO('sqlite:' . $filename);
         $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
-
     private function query($sql, $params = [])
     {
         $stmt = $this->db->prepare($sql);
